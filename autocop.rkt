@@ -17,7 +17,7 @@
 (define RESULTS-JSON (raw->jsexpr SEARCH-ITEMS))
 
 ; Save to disk
-(write "results.json" RESULTS-JSON)
+; (write "results.json" RESULTS-JSON)
 
-; (map print (map-to-repo-results (extract-items (raw->jsexpr SEARCH-ITEMS))))
+(generate-open-issue-urls (map-to-repo-results (extract-items (raw->jsexpr SEARCH-ITEMS))))
 

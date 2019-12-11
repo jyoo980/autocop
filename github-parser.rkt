@@ -22,10 +22,18 @@
 (define (map-to-repo-results items)
   (local [(define full-names (extract-val items 'full_name))
           (define html-urls (extract-val items 'html_url))]
-    (foldl (lambda (html name acc)
-             (append acc (list (repo-result name html))))
+    (foldl (lambda (name url acc)
+             (append acc (list (repo-result name url))))
            empty
            full-names
            html-urls)))
 
-(provide raw->jsexpr extract-items extract-val map-to-repo-results)
+(define (parse-owner-repo repo-result)
+  (string-split (repo-result-name repo-result) #rx"/"))
+
+(provide repo-result-name
+         raw->jsexpr
+         extract-items
+         extract-val
+         map-to-repo-results
+         parse-owner-repo)
