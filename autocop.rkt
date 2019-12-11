@@ -3,6 +3,7 @@
 (require net/url)
 (require "url-builder.rkt")
 (require "github-parser.rkt")
+(require "file-io.rkt")
 
 ;; string -> string
 ;; searches GitHub for repositories containing the term, produces
@@ -12,7 +13,11 @@
                   get-pure-port
                   port->string))
 
-#|
-(define SEARCH-ITEMS (search-gh-for "term"))
-(map print (map-to-repo-results (extract-items (raw->jsexpr SEARCH-ITEMS))))
-|#
+(define SEARCH-ITEMS (search-gh-for "insightubc"))
+(define RESULTS-JSON (raw->jsexpr SEARCH-ITEMS))
+
+; Save to disk
+(write "results.json" RESULTS-JSON)
+
+; (map print (map-to-repo-results (extract-items (raw->jsexpr SEARCH-ITEMS))))
+
