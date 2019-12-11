@@ -23,7 +23,7 @@
   (local [(define full-names (extract-val items 'full_name))
           (define html-urls (extract-val items 'html_url))]
     (foldl (lambda (html name acc)
-             (append (list (repo-result name html)) acc))
+             (append acc (list (repo-result name html))))
            empty
            full-names
            html-urls)))
