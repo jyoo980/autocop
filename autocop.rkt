@@ -19,5 +19,12 @@
 ; Save to disk
 ; (write "results.json" RESULTS-JSON)
 
-(generate-open-issue-urls (map-to-repo-results (extract-items (raw->jsexpr SEARCH-ITEMS))))
+(define issue-urls
+  (generate-open-issue-urls
+   (map-to-repo-results
+    (extract-items
+     (raw->jsexpr SEARCH-ITEMS)))))
+
+(for ([url issue-urls])
+  (printf "~a/new\n" url))
 
