@@ -34,9 +34,6 @@ try:
   opts.add_argument(f"--user-data-dir={path_to_user_profile}")
   driver = webdriver.Chrome(options=opts)
 
-  # Pre-process urls
-  issue_urls = [url + "/new" for url in issue_urls]
-
   for url in issue_urls:
     create_issue(url)
      # Don't go too fast
@@ -44,5 +41,8 @@ try:
 
   driver.quit()
 except:
+  if driver:
+    driver.quit()
+finally:
   if driver:
     driver.quit()
