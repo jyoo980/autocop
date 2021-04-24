@@ -3,3 +3,4 @@ compiled/
 .DS_Store
 *.rkt~
 *.json
+*.log

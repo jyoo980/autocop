@@ -23,7 +23,6 @@ def create_issue(url):
     '//button[normalize-space()="Submit new issue"]'
   )
   submit_button.click()
-  
 
 issue_urls = ["TODO: fill this in"]
 path_to_user_profile = "/Users/<username>/Library/Application Support/Google/Chrome/"
@@ -40,9 +39,9 @@ try:
     wait(5)
 
   driver.quit()
-except:
-  if driver:
-    driver.quit()
+except Exception as e:
+  print(f"Exception: {e}")
 finally:
   if driver:
     driver.quit()
+
