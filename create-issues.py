@@ -38,7 +38,6 @@ try:
      # Don't go too fast
     wait(5)
 
-  driver.quit()
 except Exception as e:
   print(f"Exception: {e}")
 finally:

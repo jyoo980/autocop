@@ -12,9 +12,10 @@
   (string-append (github-url-base) "repos/" owner-name "/" repo-name "/issues"))
 
 (define (generate-open-issue-urls repo-results)
-  (map (lambda (repo-result)
-         (local [(define owner-repo (parse-owner-repo repo-result))]
-           (open-issue-url (first owner-repo) (second owner-repo))))
-       repo-results))
-
+  (for/list ([repo repo-results])
+    (match (parse-owner-repo repo)
+      [`(,owner ,repo) (open-issue-url owner repo)]
+      [other (error "Unexpected error generatorating urls: ~a\n" other)])))
+  
 (provide build-search-url generate-open-issue-urls)
+

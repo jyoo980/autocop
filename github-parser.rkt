@@ -17,16 +17,17 @@
   (hash-ref full-data 'items))
 
 (define (extract-val items key)
-  (map (lambda (item) (hash-ref item key)) items))
+  (for/list ([item items])
+    (hash-ref item key)))
 
 (define (map-to-repo-results items)
-  (local [(define full-names (extract-val items 'full_name))
-          (define html-urls (extract-val items 'html_url))]
+  (let ([full-names (extract-val items 'full_name)]
+        [html-urls (extract-val items 'html_url)])
     (foldl (lambda (name url acc)
-             (append acc (list (repo-result name url))))
-           empty
-           full-names
-           html-urls)))
+              (append acc (list (repo-result name url))))
+            empty
+            full-names
+            html-urls)))
 
 (define (parse-owner-repo repo-result)
   (string-split (repo-result-name repo-result) #rx"/"))
